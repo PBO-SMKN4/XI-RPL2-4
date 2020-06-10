@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.RollbackException;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -41,18 +40,24 @@ public class Jadwal_M4P extends JPanel {
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("project_m4p?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
         query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT m FROM M4p m");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
-        jRadioButton1 = new javax.swing.JRadioButton();
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
+        hariLabel = new javax.swing.JLabel();
+        jamMasukLabel = new javax.swing.JLabel();
+        pelajaranLabel = new javax.swing.JLabel();
+        ruanganLabel = new javax.swing.JLabel();
+        kelasLabel = new javax.swing.JLabel();
+        hariField = new javax.swing.JTextField();
+        jamMasukField = new javax.swing.JTextField();
+        pelajaranField = new javax.swing.JTextField();
+        ruanganField = new javax.swing.JTextField();
+        kelasField = new javax.swing.JTextField();
+        saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        Keluar = new javax.swing.JButton();
 
         FormListener formListener = new FormListener();
-
-        jRadioButton1.setText("jRadioButton1");
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${hari}"));
@@ -74,64 +79,131 @@ public class Jadwal_M4P extends JPanel {
 
         masterScrollPane.setViewportView(masterTable);
 
+        hariLabel.setText("Hari:");
+
+        jamMasukLabel.setText("Jam Masuk:");
+
+        pelajaranLabel.setText("Pelajaran:");
+
+        ruanganLabel.setText("Ruangan:");
+
+        kelasLabel.setText("Kelas:");
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.hari}"), hariField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue("null");
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), hariField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.jamMasuk}"), jamMasukField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue("null");
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), jamMasukField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.pelajaran}"), pelajaranField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue("null");
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), pelajaranField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.ruangan}"), ruanganField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue("null");
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), ruanganField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.kelas}"), kelasField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue("null");
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), kelasField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        saveButton.setText("Save");
+        saveButton.addActionListener(formListener);
+
         refreshButton.setText("Refresh");
         refreshButton.addActionListener(formListener);
 
-        newButton.setText("Buat Baru");
+        newButton.setText("New");
         newButton.addActionListener(formListener);
 
-        deleteButton.setText("Hapus");
+        deleteButton.setText("Delete");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         deleteButton.addActionListener(formListener);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Jadwal Pelajaran ");
-
-        Keluar.setText("Keluar");
-        Keluar.addActionListener(formListener);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(257, 257, 257)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(masterScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Keluar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(refreshButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newButton)))
-                .addGap(27, 27, 27))
+                .addComponent(newButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(refreshButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveButton)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(hariLabel)
+                    .addComponent(jamMasukLabel)
+                    .addComponent(pelajaranLabel)
+                    .addComponent(ruanganLabel)
+                    .addComponent(kelasLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(hariField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jamMasukField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(pelajaranField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(ruanganField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(kelasField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteButton, refreshButton});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteButton, newButton, refreshButton, saveButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newButton)
-                    .addComponent(deleteButton)
+                    .addComponent(hariLabel)
+                    .addComponent(hariField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jamMasukLabel)
+                    .addComponent(jamMasukField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pelajaranLabel)
+                    .addComponent(pelajaranField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ruanganLabel)
+                    .addComponent(ruanganField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kelasLabel)
+                    .addComponent(kelasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton)
                     .addComponent(refreshButton)
-                    .addComponent(Keluar))
-                .addGap(15, 15, 15))
+                    .addComponent(deleteButton)
+                    .addComponent(newButton))
+                .addContainerGap())
         );
 
         bindingGroup.bind();
@@ -142,14 +214,14 @@ public class Jadwal_M4P extends JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == newButton) {
-                Jadwal_M4P.this.newButtonActionPerformed(evt);
-            }
-            else if (evt.getSource() == Keluar) {
-                Jadwal_M4P.this.KeluarActionPerformed(evt);
+            if (evt.getSource() == saveButton) {
+                Jadwal_M4P.this.saveButtonActionPerformed(evt);
             }
             else if (evt.getSource() == refreshButton) {
                 Jadwal_M4P.this.refreshButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton) {
+                Jadwal_M4P.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
                 Jadwal_M4P.this.deleteButtonActionPerformed(evt);
@@ -158,21 +230,6 @@ public class Jadwal_M4P extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     
-
-    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        Tugas_Akhir.M4p m = new Tugas_Akhir.M4p();
-        entityManager.persist(m);
-        list.add(m);
-        int row = list.size() - 1;
-        masterTable.setRowSelectionInterval(row, row);
-        masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
-    }//GEN-LAST:event_newButtonActionPerformed
-    
-    private void KeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeluarActionPerformed
-        int result = JOptionPane.showConfirmDialog(null,"Apakah Anda Yakin Ingin Keluar?");
-        if (result == JOptionPane.YES_OPTION);
-        System.exit(0);
-    }//GEN-LAST:event_KeluarActionPerformed
 
     @SuppressWarnings("unchecked")
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
@@ -197,19 +254,52 @@ public class Jadwal_M4P extends JPanel {
         list.removeAll(toRemove);
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
+        Tugas_Akhir.M4p m = new Tugas_Akhir.M4p();
+        entityManager.persist(m);
+        list.add(m);
+        int row = list.size() - 1;
+        masterTable.setRowSelectionInterval(row, row);
+        masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
+    }//GEN-LAST:event_newButtonActionPerformed
+    
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        try {
+            entityManager.getTransaction().commit();
+            entityManager.getTransaction().begin();
+        } catch (RollbackException rex) {
+            rex.printStackTrace();
+            entityManager.getTransaction().begin();
+            List<Tugas_Akhir.M4p> merged = new ArrayList<Tugas_Akhir.M4p>(list.size());
+            for (Tugas_Akhir.M4p m : list) {
+                merged.add(entityManager.merge(m));
+            }
+            list.clear();
+            list.addAll(merged);
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Keluar;
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JTextField hariField;
+    private javax.swing.JLabel hariLabel;
+    private javax.swing.JTextField jamMasukField;
+    private javax.swing.JLabel jamMasukLabel;
+    private javax.swing.JTextField kelasField;
+    private javax.swing.JLabel kelasLabel;
     private java.util.List<Tugas_Akhir.M4p> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
+    private javax.swing.JTextField pelajaranField;
+    private javax.swing.JLabel pelajaranLabel;
     private javax.persistence.Query query;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JTextField ruanganField;
+    private javax.swing.JLabel ruanganLabel;
+    private javax.swing.JButton saveButton;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     public static void main(String[] args) {
