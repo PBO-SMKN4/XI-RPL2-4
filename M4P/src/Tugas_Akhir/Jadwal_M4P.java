@@ -90,14 +90,19 @@ public class Jadwal_M4P extends JPanel {
 
         masterScrollPane.setViewportView(masterTable);
 
+        hariLabel.setForeground(new java.awt.Color(255, 0, 0));
         hariLabel.setText("Hari:");
 
+        jamMasukLabel.setForeground(new java.awt.Color(255, 0, 0));
         jamMasukLabel.setText("Jam Masuk:");
 
+        pelajaranLabel.setForeground(new java.awt.Color(255, 0, 0));
         pelajaranLabel.setText("Pelajaran:");
 
+        ruanganLabel.setForeground(new java.awt.Color(255, 0, 0));
         ruanganLabel.setText("Ruangan:");
 
+        kelasLabel.setForeground(new java.awt.Color(255, 51, 0));
         kelasLabel.setText("Kelas:");
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.hari}"), hariField, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -160,6 +165,7 @@ public class Jadwal_M4P extends JPanel {
         deleteButton.addActionListener(formListener);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Jadwal Pelajaran");
 
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
@@ -268,23 +274,23 @@ public class Jadwal_M4P extends JPanel {
             if (evt.getSource() == hariField) {
                 Jadwal_M4P.this.hariFieldActionPerformed(evt);
             }
-            else if (evt.getSource() == refreshButton) {
-                Jadwal_M4P.this.refreshButtonActionPerformed(evt);
-            }
-            else if (evt.getSource() == deleteButton) {
-                Jadwal_M4P.this.deleteButtonActionPerformed(evt);
-            }
             else if (evt.getSource() == kelasField) {
                 Jadwal_M4P.this.kelasFieldActionPerformed(evt);
-            }
-            else if (evt.getSource() == jButton1) {
-                Jadwal_M4P.this.jButton1ActionPerformed(evt);
             }
             else if (evt.getSource() == saveButton) {
                 Jadwal_M4P.this.saveButtonActionPerformed(evt);
             }
+            else if (evt.getSource() == refreshButton) {
+                Jadwal_M4P.this.refreshButtonActionPerformed(evt);
+            }
             else if (evt.getSource() == newButton) {
                 Jadwal_M4P.this.newButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == deleteButton) {
+                Jadwal_M4P.this.deleteButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton1) {
+                Jadwal_M4P.this.jButton1ActionPerformed(evt);
             }
         }
 
