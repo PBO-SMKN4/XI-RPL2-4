@@ -206,14 +206,23 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="hariField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=""/>
+      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.hari}" target="hariField" targetPath="text" updateStrategy="0" immediately="false">
           <Property name="incompletePathValue" type="java.lang.String" value="null"/>
         </BindingProperty>
         <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="hariField" targetPath="enabled" updateStrategy="1" immediately="false"/>
       </BindingProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hariFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jamMasukField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=""/>
+      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.jamMasuk}" target="jamMasukField" targetPath="text" updateStrategy="0" immediately="false">
           <Property name="incompletePathValue" type="java.lang.String" value="null"/>
@@ -222,6 +231,9 @@
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="pelajaranField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=""/>
+      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.pelajaran}" target="pelajaranField" targetPath="text" updateStrategy="0" immediately="false">
           <Property name="incompletePathValue" type="java.lang.String" value="null"/>
@@ -230,6 +242,9 @@
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="ruanganField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=""/>
+      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.ruangan}" target="ruanganField" targetPath="text" updateStrategy="0" immediately="false">
           <Property name="incompletePathValue" type="java.lang.String" value="null"/>
@@ -238,6 +253,9 @@
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="kelasField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=""/>
+      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.kelas}" target="kelasField" targetPath="text" updateStrategy="0" immediately="false">
           <Property name="incompletePathValue" type="java.lang.String" value="null"/>
